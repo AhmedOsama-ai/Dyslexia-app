@@ -30,7 +30,7 @@ class _CameraPageState extends State<CameraPage> {
   Widget build(BuildContext context) {
     cameraCubit.initCamera();
     return Scaffold(
-      body: Center(
+      body: SafeArea(
         child: BlocBuilder<CameraCubit, CameraState>(
           builder: (context, state) {
             if (state is CameraLoaded) {
@@ -38,32 +38,37 @@ class _CameraPageState extends State<CameraPage> {
             } else if (state is PictureTaken) {
               return Image.file(File(state.path));
             } else {
-              return const CircularProgressIndicator();
+              return const Center(child: CircularProgressIndicator());
             }
           },
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: _cameraButton(),
     );
   }
 
   Widget _cameraButton() {
     const BorderRadius r = BorderRadius.all(Radius.circular(50));
-    const double s = 44;
-    return FloatingActionButton(
-      elevation: 0,
-      shape: const RoundedRectangleBorder(borderRadius: r),
-      backgroundColor: Colors.red,
-      onPressed: () async {
-        cameraCubit.takePicture();
-      },
-      child: Container(
-        width: s,
-        height: s,
-        decoration: const BoxDecoration(
-          borderRadius: r,
-          color: Colors.white,
+    const double circleSize = 60;
+    const double buttonSize = 65;
+    return SizedBox(
+      width: buttonSize,
+      height: buttonSize,
+      child: FloatingActionButton(
+        elevation: 0,
+        shape: const RoundedRectangleBorder(borderRadius: r),
+        backgroundColor: Colors.red,
+        onPressed: () async {
+          cameraCubit.takePicture();
+        },
+        child: Container(
+          width: circleSize,
+          height: circleSize,
+          decoration: BoxDecoration(
+            borderRadius: r,
+            border: Border.all(color: Colors.white, width: 1.5),
+          ),
         ),
       ),
     );

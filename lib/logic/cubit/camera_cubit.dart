@@ -21,11 +21,11 @@ class CameraCubit extends Cubit<CameraState> {
     await _initializeControllerFuture;
     _controller.setFlashMode(FlashMode.off);
     emit(CameraLoaded(controller: _controller));
+    print('camera init');
   }
 
   takePicture() async {
     try {
-      //TODO:: ensure this is working
       await _initializeControllerFuture;
       final image = await _controller.takePicture();
       emit(PictureTaken(path: image.path));
