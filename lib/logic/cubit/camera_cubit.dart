@@ -21,7 +21,6 @@ class CameraCubit extends Cubit<CameraState> {
     await _initializeControllerFuture;
     _controller.setFlashMode(FlashMode.off);
     emit(CameraLoaded(controller: _controller));
-    print('camera init');
   }
 
   takePicture() async {
@@ -30,7 +29,7 @@ class CameraCubit extends Cubit<CameraState> {
       final image = await _controller.takePicture();
       emit(PictureTaken(path: image.path));
     } catch (e) {
-      print(e);
+      // print(e);
     }
   }
 
