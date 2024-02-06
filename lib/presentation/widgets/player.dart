@@ -138,12 +138,12 @@ class _PlayerState extends State<Player> {
         ),
         child: Slider(
           min: 0,
-          max: duration.inSeconds.toDouble(),
-          value: position.inSeconds.toDouble(),
+          max: (duration.inMilliseconds / 100).toDouble(),
+          value: (position.inMilliseconds / 100).toDouble(),
           onChanged: (value) async {
             _onDragging = true;
             setState(() {
-              position = Duration(seconds: value.toInt());
+              position = Duration(milliseconds: (value * 100).toInt());
             });
           },
           onChangeEnd: (value) async {
