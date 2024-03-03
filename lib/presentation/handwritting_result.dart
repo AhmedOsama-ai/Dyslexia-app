@@ -5,18 +5,24 @@ import 'package:flutter/material.dart';
 
 class HandWrittingResultPage extends StatelessWidget {
   final bool isNormal;
-  final String text;
-  const HandWrittingResultPage({required this.isNormal, super.key})
-      : text = isNormal ? 'Normal' : 'Not Normal';
+  final String originalText;
+  final String writtenText;
+  final String result;
+  const HandWrittingResultPage(
+      {required this.originalText,
+      required this.writtenText,
+      required this.isNormal,
+      super.key})
+      : result = isNormal ? 'Normal' : 'Not Normal';
 
   @override
   Widget build(BuildContext context) {
     return PopScope(
         canPop: false,
-        onPopInvoked: (didPop) {
+        onPopInvoked: (_) {
           Navigator.of(context).pushAndRemoveUntil(
-              MaterialPageRoute(builder: (context) => HandwrittingPage()),
-              (route) => false);
+              MaterialPageRoute(builder: (_) => HandwrittingPage()),
+              (_) => false);
         },
         child: MyScaffold(
             title: 'Handwritting Result',
@@ -24,11 +30,43 @@ class HandWrittingResultPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
+                  'Original Text',
+                  style: bodyTextStyle.copyWith(color: Colors.black),
+                  textAlign: TextAlign.center,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24),
+                  child: Text(
+                    originalText,
+                    style: bodyTextStyle.copyWith(fontSize: 24),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                const SizedBox(height: 40),
+                Text(
+                  'You Wrote',
+                  style: bodyTextStyle.copyWith(color: Colors.black),
+                  textAlign: TextAlign.center,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24),
+                  child: Text(
+                    writtenText,
+                    style: bodyTextStyle.copyWith(fontSize: 24),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                const SizedBox(height: 40),
+                Text(
                   'The Result is  ',
                   style: bodyTextStyle.copyWith(color: Colors.black),
                   textAlign: TextAlign.center,
                 ),
-                Text(text, style: bodyTextStyle.copyWith(fontSize: 28)),
+                Text(
+                  result,
+                  style: bodyTextStyle.copyWith(fontSize: 24),
+                  textAlign: TextAlign.center,
+                ),
               ],
             )));
   }

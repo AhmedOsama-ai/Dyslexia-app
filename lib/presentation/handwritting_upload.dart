@@ -81,11 +81,13 @@ class _HandwrittingUploadState extends State<HandwrittingUpload> {
           await MLServices().uploadHandWriting(selectedImg!.path);
       if (response.statusCode == 200) {
         var r = HandwrittingResponse.fromJson(response.data);
-        bool isNormal =
-            r.parsedText.toUpperCase() == widget.correctText.toUpperCase();
+        bool isNormal = r.parsedText == widget.correctText;
         if (!context.mounted) return;
         Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (_) => HandWrittingResultPage(isNormal: isNormal)));
+            builder: (_) => HandWrittingResultPage(
+                originalText: widget.correctText,
+                writtenText: r.parsedText,
+                isNormal: isNormal)));
       } else {}
     } catch (e) {
       if (!context.mounted) return;

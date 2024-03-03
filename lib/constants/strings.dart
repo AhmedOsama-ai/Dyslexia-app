@@ -1,6 +1,6 @@
 const audioUrlEx = 'https://samplelib.com/lib/preview/mp3/sample-15s.mp3';
 
-const baseUrl = 'https://gp-node-server-git-main-sayed4900.vercel.app/api';
+const baseUrl = 'https://gp-node-server.vercel.app/api';
 const handwritingPredictEndpoint = '/handwritten/predict-hand';
 const handwritingAudioEndpoint = '/handwritten/random-audio';
 
